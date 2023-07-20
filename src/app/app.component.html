@@ -1,45 +1,79 @@
-<h1>Password Generator</h1>
-<form [formGroup]="passwordForm">
-  <div>
-    <label>Enter Length</label>
-    <input formControlName="passwordLength" type="text" />
-  </div>
+<div class="container">
+  <div class="columns is-centered">
+    <div class="box column is-one-third">
+      <h1 class="title has-text-centered">Password Generator</h1>
+      <form [formGroup]="passwordForm">
+        <div class="field">
+          <label>Enter Length</label>
+          <input class="input" formControlName="passwordLength" type="text" />
+        </div>
 
-  <div>
-    <label for="useLetters">Use Letters</label>
-    <input id="useLetters" formControlName="useLetters" type="checkbox" />
-  </div>
-  <div>
-    <label for="useNumbers">Use Numbers</label>
-    <input id="useNumbers" formControlName="useNumbers" type="checkbox" />
-  </div>
-  <div>
-    <label for="useSymbols">Use Symbols</label>
-    <input id="useSymbols" formControlName="useSymbols" type="checkbox" />
-  </div>
+        <div class="field">
+          <div class="control">
+            <input
+              id="useLetters"
+              formControlName="useLetters"
+              type="checkbox"
+            />
+            <label class="checkbox" for="useLetters">Use Letters</label>
+          </div>
+        </div>
 
-  <div>
-    <button
-      [disabled]="
-        !(
-          passwordForm.get('passwordLength')?.value &&
-          (passwordForm.get('useLetters')?.value ||
-            passwordForm.get('useNumbers')?.value ||
-            passwordForm.get('useSymbols')?.value)
-        )
-      "
-      type="button"
-      (click)="onButtonClick()"
-    >
-      Generate!
-    </button>
-  </div>
-</form>
+        <div class="field">
+          <div class="control">
+            <input
+              id="useNumbers"
+              formControlName="useNumbers"
+              type="checkbox"
+            />
+            <label class="checkbox" for="useNumbers">Use Numbers</label>
+          </div>
+        </div>
 
-<div>
-  <label>Your Password</label>
-  <input [value]="password" [disabled]="true" name="password" />
+        <div class="field">
+          <div class="control">
+            <label class="checkbox">
+              <input
+                id="useSymbols"
+                formControlName="useSymbols"
+                type="checkbox"
+              />
+              Use Symbols
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <button
+            [disabled]="
+              !(
+                passwordForm.get('passwordLength')?.value &&
+                (passwordForm.get('useLetters')?.value ||
+                  passwordForm.get('useNumbers')?.value ||
+                  passwordForm.get('useSymbols')?.value)
+              )
+            "
+            class="button is-link is-fullwidth"
+            type="button"
+            (click)="onButtonClick()"
+          >
+            Generate!
+          </button>
+        </div>
+      </form>
+
+      <div *ngIf="password" class="box">
+        <label>Your Password</label>
+        <input
+          [value]="password"
+          [disabled]="true"
+          name="password"
+          class="input"
+        />
+      </div>
+
+      <!-- Display the generated password using interpolation -->
+      <!-- <div>{{ getPassword() }}</div> -->
+    </div>
+  </div>
 </div>
-
-<!-- Display the generated password using interpolation -->
-<div>{{ getPassword() }}</div>
